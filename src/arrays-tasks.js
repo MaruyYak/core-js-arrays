@@ -508,8 +508,26 @@ function findCommonElements(arr1, arr2) {
  *    findLongestIncreasingSubsequence([3, 10, 2, 1, 20]) => 2
  *    findLongestIncreasingSubsequence([50, 3, 10, 7, 40, 80]) => 3
  */
-function findLongestIncreasingSubsequence(/* nums */) {
-  throw new Error('Not implemented');
+function findLongestIncreasingSubsequence(nums) {
+  let maxLength = 0;
+  let prevValue = null;
+
+  const res = nums.reduce((acc, val) => {
+    let result = acc;
+    if (prevValue) {
+      if (prevValue < val) {
+        result = acc + 1;
+      } else {
+        maxLength = maxLength > result ? maxLength : result;
+        result = 1;
+      }
+    }
+
+    prevValue = val;
+    return result;
+  }, 1);
+
+  return maxLength > res ? maxLength : res;
 }
 
 /**
@@ -601,8 +619,11 @@ function sortDigitNamesByNumericOrder(arr) {
  *   swapHeadAndTail([]) => []
  *
  */
-function swapHeadAndTail(/* arr */) {
-  throw new Error('Not implemented');
+function swapHeadAndTail(arr) {
+  const middle = Math.floor(arr.length / 2);
+  return arr
+    .slice(-middle)
+    .concat(arr.slice(middle, -middle), arr.slice(0, middle));
 }
 
 module.exports = {
